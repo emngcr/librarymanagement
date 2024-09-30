@@ -1,9 +1,6 @@
 package com.project.librarymanagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Set;
 
@@ -16,7 +13,9 @@ public class Author {
     private String name;
     @Column(name = "last_name")
     private String lastName;
-
+    @OneToMany(mappedBy = "author",
+               fetch = FetchType.LAZY,
+               cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST ,CascadeType.REFRESH})
     private Set<Book> books;
 
     public Author(Long id, String name, String lastName, Set<Book> books) {

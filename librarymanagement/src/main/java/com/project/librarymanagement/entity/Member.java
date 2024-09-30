@@ -1,9 +1,6 @@
 package com.project.librarymanagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -23,12 +20,14 @@ public class Member {
     private String phoneNumber;
     @Column(name = "active")
     private boolean isActive;
-
-    private Set<Loan> loans;
-
+    @OneToMany(mappedBy = "member",
+               fetch = FetchType.LAZY,
+               cascade = CascadeType.ALL)
+    private Set<Author> loans;
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private Set<Reservation> reservations;
 
-    public Member(Long id, String name, Date membershipDate, String email, String phoneNumber, boolean isActive, Set<Loan> loans, Set<Reservation> reservations) {
+    public Member(Long id, String name, Date membershipDate, String email, String phoneNumber, boolean isActive, Set<Author> loans, Set<Reservation> reservations) {
         this.id = id;
         this.name = name;
         this.membershipDate = membershipDate;
@@ -87,11 +86,11 @@ public class Member {
         isActive = active;
     }
 
-    public Set<Loan> getLoans() {
+    public Set<Author> getLoans() {
         return loans;
     }
 
-    public void setLoans(Set<Loan> loans) {
+    public void setLoans(Set<Author> loans) {
         this.loans = loans;
     }
 

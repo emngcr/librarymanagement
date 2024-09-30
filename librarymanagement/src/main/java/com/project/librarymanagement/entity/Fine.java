@@ -1,17 +1,15 @@
 package com.project.librarymanagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "fine")
 public class Fine {
     @Id
     private Long id;
-
-    private Loan loan;
+    @OneToOne(mappedBy = "fine",
+            cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    private Author loan;
     @Column(name = "amount")
     private double amount;
 
@@ -21,7 +19,7 @@ public class Fine {
     @Column(name = "fine_status")
     private FineStatus fineStatus;
 
-    public Fine(Long id, Loan loan, double amount, FineStatus fineStatus) {
+    public Fine(Long id, Author loan, double amount, FineStatus fineStatus) {
         this.id = id;
         this.loan = loan;
         this.amount = amount;
@@ -36,11 +34,11 @@ public class Fine {
         this.id = id;
     }
 
-    public Loan getLoan() {
+    public Author getLoan() {
         return loan;
     }
 
-    public void setLoan(Loan loan) {
+    public void setLoan(Author loan) {
         this.loan = loan;
     }
 

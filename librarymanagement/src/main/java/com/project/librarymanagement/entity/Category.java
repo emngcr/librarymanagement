@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "category")
 public class Category {
@@ -14,6 +17,8 @@ public class Category {
     private String name;
     @Column(name = "description")
     private String description;
+
+    //private List<Book> books;//getter ve setter koy
 
     public Category(Long id, String name, String description) {
         this.id = id;

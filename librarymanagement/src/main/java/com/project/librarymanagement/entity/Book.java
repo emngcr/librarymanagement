@@ -1,9 +1,6 @@
 package com.project.librarymanagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Set;
 
@@ -14,7 +11,8 @@ public class Book {
     private Long id;
     @Column(name = "title")
     private String title;
-
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "author_id")
     private Author author;//basic type degil diye one to one/many gibi ilişkisel tip istiyor
     @Column(name = "isbn")
     private String isbn;
@@ -24,12 +22,16 @@ public class Book {
     private int year;
     @Column(name = "copies")
     private  int copies;
-
+    @ManyToOne(cascade = {CascadeType.PERSIST , CascadeType.MERGE ,CascadeType.REFRESH , CascadeType.DETACH})
+    @JoinColumn(name = "genre_category")
     private Category genre;
+    @OneToMany(mappedBy = "book",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH}
+            )
+    private Set<Author> loans;
 
-    private Set<Loan> loans;
-
-    public Book(Long id, String title, Author author, String isbn, String publisher, int year, int copies, Category genre, Set<Loan> loans) {
+    public Book(Long id, String title, Author author, String isbn, String publisher, int year, int copies, Category genre, Set<Author> loans) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -105,11 +107,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public Set<Loan> getLoans() {
+    public Set<Author> getLoans() {
         return loans;
     }
 
-    public void setLoans(Set<Loan> loans) {
+    public void setLoans(Set<Author> loans) {
         this.loans = loans;
     }
 }

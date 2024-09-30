@@ -9,9 +9,11 @@ import java.util.Date;
 public class Reservation {
     @Id
     private Long id;
-
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "book_id")
     private Book book;
-
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "member_id")
     private Member member;
     @Column(name = "reservation_date")
     private Date resDate;

@@ -1,9 +1,6 @@
 package com.project.librarymanagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -12,9 +9,11 @@ import java.util.Date;
 public class Loan {
     @Id
     private Long id;
-
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "book_id")
     private Book book;
-
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "member_id")
     private Member member;
     @Column(name = "loan_date")
     private Date loanDate;
@@ -22,7 +21,8 @@ public class Loan {
     private Date dueDate;
     @Column(name = "return_date")
     private Date returnDate;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fine_id")
     private Fine fine;
 
     public Loan(Long id, Book book, Member member, Date loanDate, Date dueDate, Date returnDate, Fine fine) {
