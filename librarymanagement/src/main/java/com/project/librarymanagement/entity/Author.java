@@ -1,12 +1,14 @@
 package com.project.librarymanagement.entity;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "author")
 public class Author {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     @Column(name = "name")
@@ -14,15 +16,22 @@ public class Author {
     @Column(name = "last_name")
     private String lastName;
     @OneToMany(mappedBy = "author",
-               fetch = FetchType.LAZY,
-               cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST ,CascadeType.REFRESH})
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST ,CascadeType.REFRESH})
     private Set<Book> books;
 
-    public Author(Long id, String name, String lastName, Set<Book> books) {
+    public Author(){
+
+    }
+    public Author(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
+
+    public Author(Long id, String name, String lastName) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.books = books;
     }
 
     public Long getId() {

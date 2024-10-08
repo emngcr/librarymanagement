@@ -1,7 +1,8 @@
 package com.project.librarymanagement.repository;
 
-import com.project.librarymanagement.entity.Author;
+
+import com.project.librarymanagement.entity.Loan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LoanRepository extends JpaRepository<Author, Long> {
+public interface LoanRepository extends JpaRepository<Loan, Long> {
 }

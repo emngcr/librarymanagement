@@ -1,32 +1,52 @@
 package com.project.librarymanagement.service;
 
+import com.project.librarymanagement.entity.Author;
 import com.project.librarymanagement.entity.Fine;
+import com.project.librarymanagement.entity.Loan;
+import com.project.librarymanagement.repository.LoanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+@Service
+public class LoanServiceImpl implements LoanService{
 
-public class LoanServiceImpl implements FineService{
+    private LoanRepository loanRepository;
+    @Autowired
+    LoanServiceImpl(LoanRepository loanRepository){
+        this.loanRepository = loanRepository;
+    }
     @Override
-    public List<Fine> getAll() {
-        return null;
+    public List<Loan> getAll() {
+        return loanRepository.findAll();
     }
 
     @Override
-    public void addFine(Fine fine) {
-
+    public Loan addLoan(Loan loan) {
+        return loanRepository.save(loan);
     }
 
     @Override
-    public Fine getById(Long id) {
-        return null;
+    public Loan getById(Long id) {
+        return  loanRepository.findById(id).orElse(null);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        loanRepository.deleteById(id);
     }
 
     @Override
-    public Fine update(Long id) {
-        return null;
+    public Loan update(Loan loan, Long id) {
+        Optional<Loan> optional = loanRepository.findById(id);// olup olmadigina dair denetim
+
+        if(optional.isPresent()){
+            Loan loan1 = optional.get();
+            return loan1;
+        }
+        else {
+            throw new RuntimeException("Doesn't exist : "+ id );
+        }
     }
 }

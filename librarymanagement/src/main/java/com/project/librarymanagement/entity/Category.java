@@ -1,9 +1,6 @@
 package com.project.librarymanagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Set;
@@ -11,6 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "category")
 public class Category {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     @Column(name = "name")
@@ -19,6 +17,13 @@ public class Category {
     private String description;
 
     //private List<Book> books;//getter ve setter koy
+    Category(){
+
+    }
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public Category(Long id, String name, String description) {
         this.id = id;

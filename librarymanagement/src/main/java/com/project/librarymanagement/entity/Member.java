@@ -1,39 +1,48 @@
 package com.project.librarymanagement.entity;
-
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "member")
 public class Member {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "membership_date")
-    private Date membershipDate;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "member_ship_date")
+    private Date memberShipDate;
     @Column(name = "email")
     private String email;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "active")
-    private boolean isActive;
+
     @OneToMany(mappedBy = "member",
                fetch = FetchType.LAZY,
-               cascade = CascadeType.ALL)
-    private Set<Author> loans;
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+               cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    private Set<Loan> loans;
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY , cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
     private Set<Reservation> reservations;
 
-    public Member(Long id, String name, Date membershipDate, String email, String phoneNumber, boolean isActive, Set<Author> loans, Set<Reservation> reservations) {
-        this.id = id;
-        this.name = name;
-        this.membershipDate = membershipDate;
+    Member(){
+
+    }
+
+    public Member(String firstName, Date memberShipDate, String email, String phoneNumber) {
+        this.firstName = firstName;
+        this.memberShipDate = memberShipDate;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.isActive = isActive;
+
+    }
+
+    public Member(String firstName, Date memberShipDate, String email, String phoneNumber, Set<Loan> loans, Set<Reservation> reservations) {
+        this.firstName = firstName;
+        this.memberShipDate = memberShipDate;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+
         this.loans = loans;
         this.reservations = reservations;
     }
@@ -46,20 +55,20 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Date getMembershipDate() {
-        return membershipDate;
+    public Date getMemberShipDate() {
+        return memberShipDate;
     }
 
-    public void setMembershipDate(Date membershipDate) {
-        this.membershipDate = membershipDate;
+    public void setMemberShipDate(Date memberShipDate) {
+        this.memberShipDate = memberShipDate;
     }
 
     public String getEmail() {
@@ -78,19 +87,12 @@ public class Member {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public Set<Author> getLoans() {
+    public Set<Loan> getLoans() {
         return loans;
     }
 
-    public void setLoans(Set<Author> loans) {
+    public void setLoans(Set<Loan> loans) {
         this.loans = loans;
     }
 

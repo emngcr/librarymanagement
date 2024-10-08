@@ -2,25 +2,29 @@ package com.project.librarymanagement.service;
 
 import com.project.librarymanagement.entity.Author;
 import com.project.librarymanagement.entity.Book;
+import com.project.librarymanagement.model.BookResponse;
 import com.project.librarymanagement.repository.AuthorRepository;
 import com.project.librarymanagement.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class BookServiceImpl implements BookService{
     // update yazilmadi
     private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
+    private AuthorService authorService;
+
     @Autowired
-    BookServiceImpl(BookRepository bookRepository , AuthorRepository authorRepository){
-        this.authorRepository = authorRepository;
+    BookServiceImpl(BookRepository bookRepository , AuthorService authorService){
+        this.authorService = authorService;
         this.bookRepository = bookRepository;
     }
 
     @Override
     public List<Book> getAll() {
-        return bookRepository.findAll();
+       return  bookRepository.findAll();
+
     }
 
     @Override

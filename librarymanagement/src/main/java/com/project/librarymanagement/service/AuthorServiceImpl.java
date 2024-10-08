@@ -3,14 +3,16 @@ package com.project.librarymanagement.service;
 import com.project.librarymanagement.entity.Author;
 import com.project.librarymanagement.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class AuthorServiceImpl implements AuthorService{
     private AuthorRepository authorRepository;
+
     @Autowired
-     AuthorServiceImpl(AuthorRepository authorRepository){
+    public AuthorServiceImpl(AuthorRepository authorRepository){
         this.authorRepository = authorRepository;
     }
     @Override

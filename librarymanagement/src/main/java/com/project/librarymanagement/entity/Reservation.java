@@ -7,14 +7,10 @@ import java.util.Date;
 @Entity
 @Table(name = "reservation")
 public class Reservation {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
-    @JoinColumn(name = "book_id")
-    private Book book;
-    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
-    @JoinColumn(name = "member_id")
-    private Member member;
+
     @Column(name = "reservation_date")
     private Date resDate;
 
@@ -25,6 +21,21 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(name = "reservation_status")
     private ReservationStatus reservationStatus;
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "book_id")
+    private Book book;
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    Reservation(){
+
+    }
+
+    public Reservation(Date resDate, ReservationStatus reservationStatus) {
+        this.resDate = resDate;
+        this.reservationStatus = reservationStatus;
+    }
 
     public Reservation(Long id, Book book, Member member, Date resDate, ReservationStatus reservationStatus) {
         this.id = id;

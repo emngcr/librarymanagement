@@ -2,13 +2,13 @@ package com.project.librarymanagement.service;
 
 import com.project.librarymanagement.entity.Category;
 import com.project.librarymanagement.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CategoryServiceImpl implements CategoryService{
     private CategoryRepository categoryRepository;
-    @Autowired
+
     CategoryServiceImpl(CategoryRepository categoryRepository){
         this.categoryRepository = categoryRepository;
     }

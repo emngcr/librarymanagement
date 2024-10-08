@@ -3,10 +3,11 @@ package com.project.librarymanagement.service;
 import com.project.librarymanagement.entity.Fine;
 import com.project.librarymanagement.repository.FineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class FineServiceImpl implements FineService{
     private FineRepository fineRepository;
     @Autowired

@@ -7,14 +7,10 @@ import java.util.Date;
 @Entity
 @Table(name = "loan")
 public class Loan {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
-    @JoinColumn(name = "book_id")
-    private Book book;
-    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
-    @JoinColumn(name = "member_id")
-    private Member member;
+
     @Column(name = "loan_date")
     private Date loanDate;
     @Column(name = "due_date")
@@ -24,6 +20,22 @@ public class Loan {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fine_id")
     private Fine fine;
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "book_id")
+    private Book book;
+    @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    Loan(){
+
+    }
+
+    public Loan(Date loanDate, Date dueDate, Date returnDate) {
+        this.loanDate = loanDate;
+        this.dueDate = dueDate;
+        this.returnDate = returnDate;
+    }
 
     public Loan(Long id, Book book, Member member, Date loanDate, Date dueDate, Date returnDate, Fine fine) {
         this.id = id;
