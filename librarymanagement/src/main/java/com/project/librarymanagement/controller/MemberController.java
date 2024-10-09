@@ -17,7 +17,7 @@ public class MemberController {
     public List<Member> getAllUsers(){
         return memberService.getAll();
     }
-    @GetMapping("/{memberid}")
+    @GetMapping("/{id}")
     public Member getMemberById(@PathVariable Long id){
         return memberService.getById(id);
     }
@@ -25,11 +25,11 @@ public class MemberController {
     public Member createMember(@RequestBody Member member){
         return memberService.addAuthor(member);
     }
-    @PutMapping("/{memberid}")
+    @PutMapping("/{id}")
     public Member  updateMemberById(@RequestBody Member member , @PathVariable Long id){
         return memberService.update(member , id);
     }
-    @DeleteMapping("/{memberid}")
+    @DeleteMapping("/{id}")
     public void deleteMemberById(@PathVariable  Long id){
         memberService.deleteById(id);
     }

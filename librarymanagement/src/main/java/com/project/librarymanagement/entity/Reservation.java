@@ -1,5 +1,6 @@
 package com.project.librarymanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -21,11 +22,15 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(name = "reservation_status")
     private ReservationStatus reservationStatus;
+
     @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
     @JoinColumn(name = "book_id")
+    @JsonBackReference
     private Book book;
+
     @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
     Reservation(){

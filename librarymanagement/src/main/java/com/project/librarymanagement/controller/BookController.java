@@ -23,11 +23,11 @@ public class BookController {
     public Book createBook(@RequestBody  Book book){
         return bookService.addBook(book);
     }
-    @GetMapping("/{bookid}")
+    @GetMapping("/{id}")
     public Book getBookById(@PathVariable Long id){
         return bookService.getById(id);
     }
-    @DeleteMapping("/{bookid}")
+    @DeleteMapping("/{id}")
     public void deleteBookById(@PathVariable Long id){
         bookService.delete(id);
     }

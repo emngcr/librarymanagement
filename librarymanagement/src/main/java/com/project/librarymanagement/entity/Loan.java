@@ -1,5 +1,6 @@
 package com.project.librarymanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -19,12 +20,17 @@ public class Loan {
     private Date returnDate;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fine_id")
+    @JsonBackReference
     private Fine fine;
+
     @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
     @JoinColumn(name = "book_id")
+    @JsonBackReference
     private Book book;
+
     @ManyToOne(cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
     Loan(){

@@ -1,5 +1,6 @@
 package com.project.librarymanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,9 +16,11 @@ public class Author {
     private String name;
     @Column(name = "last_name")
     private String lastName;
+
     @OneToMany(mappedBy = "author",
             fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST ,CascadeType.REFRESH})
+    @JsonManagedReference
     private Set<Book> books;
 
     public Author(){

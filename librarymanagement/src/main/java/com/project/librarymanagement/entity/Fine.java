@@ -1,5 +1,6 @@
 package com.project.librarymanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,8 +18,10 @@ public class Fine {
     }
     @Column(name = "fine_status")
     private FineStatus fineStatus;
+    @JsonManagedReference
     @OneToOne(mappedBy = "fine",
             cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+
     private Loan loan;
 
     Fine(){

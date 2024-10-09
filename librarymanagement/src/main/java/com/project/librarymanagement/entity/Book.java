@@ -1,5 +1,7 @@
 package com.project.librarymanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,18 +23,24 @@ public class Book {
     private int year;
     @Column(name = "copies")
     private  int copies;
+
     @ManyToOne(
             cascade = {CascadeType.DETACH , CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "author_id")
+    @JsonBackReference
     private Author author;//basic type degil diye one to one/many gibi ilişkisel tip istiyor
+
     @ManyToOne(
             cascade = {CascadeType.PERSIST , CascadeType.MERGE ,CascadeType.REFRESH , CascadeType.DETACH})
     @JoinColumn(name = "genre_category")
+    @JsonBackReference
     private Category genre;
+
     @OneToMany(mappedBy = "book",
             fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH}
             )
+    @JsonManagedReference
     private Set<Loan> loans;
 
     public Book(){

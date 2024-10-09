@@ -18,7 +18,7 @@ public class ReservationController {
     public List<Reservation> getAllReservations(){
         return  reservationService.getAll();
     }
-    @GetMapping("/{revervationid}")
+    @GetMapping("/{id}")
     public Reservation getReservationById(@PathVariable Long id){
         return reservationService.getById(id);
     }
@@ -26,11 +26,11 @@ public class ReservationController {
     public Reservation createReservaiton(@RequestBody Reservation reservation){
         return  reservationService.addReservation(reservation);
     }
-    @PutMapping("/{reservationid}")
+    @PutMapping("/{id}")
     public Reservation updateReservationById(@RequestBody Reservation reservation , @PathVariable Long id){
         return  reservationService.update(reservation , id);
     }
-    @DeleteMapping("/{reservationid}")
+    @DeleteMapping("/{id}")
     public void deleteReservationById(@PathVariable Long id){
         reservationService.delete(id);
     }

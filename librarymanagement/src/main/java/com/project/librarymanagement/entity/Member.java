@@ -1,4 +1,5 @@
 package com.project.librarymanagement.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -21,8 +22,11 @@ public class Member {
     @OneToMany(mappedBy = "member",
                fetch = FetchType.LAZY,
                cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JsonManagedReference
     private Set<Loan> loans;
+
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY , cascade = {CascadeType.DETACH , CascadeType.MERGE ,CascadeType.PERSIST , CascadeType.REFRESH})
+    @JsonManagedReference
     private Set<Reservation> reservations;
 
     Member(){

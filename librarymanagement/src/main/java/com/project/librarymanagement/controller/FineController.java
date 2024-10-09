@@ -16,7 +16,7 @@ public class FineController {
     public List<Fine> getAllFines(){
         return fineService.getAll();
     }
-    @GetMapping("/{fineid}")
+    @GetMapping("/{id}")
     public Fine getFineById(@PathVariable Long id){
         return fineService.getById(id);
     }
@@ -24,11 +24,11 @@ public class FineController {
     public void createFine(@RequestBody Fine fine){
         fineService.addFine(fine);
     }
-    @PutMapping("/{fineid}")
+    @PutMapping("/{id}")
     public Fine updateFineById(@PathVariable Long id){
         return fineService.update(id);
     }
-    @DeleteMapping("/{fineid}")
+    @DeleteMapping("/{id}")
     public void deleteFineById(@PathVariable Long id){
         fineService.deleteById(id);
     }
